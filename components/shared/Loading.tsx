@@ -1,9 +1,13 @@
+import { useTranslation } from 'next-i18next';
+
 const Loading = () => {
+  const { t } = useTranslation('common');
+
   return (
     <div className="flex items-center justify-center">
       <div role="status">
         <Spinner />
-        <span className="sr-only">Loading...</span>
+        <span className="sr-only">{t('loading')}</span>
       </div>
     </div>
   );
