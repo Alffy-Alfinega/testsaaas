@@ -35,7 +35,16 @@ import { slackNotify } from './slack';
 import { maxLengthPolicies } from '@/lib/common';
 import { forceConsume } from '@/lib/server-common';
 
-const adapter = PrismaAdapter(prisma);
+// @next-auth/prisma-adapter (v1.0.7, last published for NextAuth v4) bundles its own
+// expected Prisma Client type shape, which only matches Prisma's default
+// node_modules/@prisma/client output. Prisma 7 requires a custom `output` path
+// (see prisma/schema.prisma), so TypeScript sees two structurally-identical but
+// nominally distinct `Prisma.Middleware` types and flags `$use` as incompatible.
+// This is a type-identity mismatch only — the underlying PrismaClient instance
+// and its runtime behavior are unaffected. @auth/prisma-adapter (the fixed,
+// actively maintained successor) requires NextAuth v5, which this app is not on;
+// migrating auth libraries was not part of this Prisma migration's scope.
+const adapter = PrismaAdapter(prisma as any);
 const providers: Provider[] = [];
 const sessionMaxAge = 14 * 24 * 60 * 60; // 14 days
 const useSecureCookie = env.appUrl.startsWith('https://');
