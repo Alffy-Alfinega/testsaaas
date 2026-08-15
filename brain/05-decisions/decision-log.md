@@ -25,6 +25,7 @@ Standing instruction is brain-folder-first on every project. This project didn't
 - Whether Stripe/SMTP/OAuth keys need manual verification in Vercel dashboard
 - `DATABASE_URL` is not scoped to Preview environments in Vercel project settings — blocks accurate CI signal on any Prisma-touching PR. User needs to fix in dashboard (Settings → Environment Variables → tick Preview). Not fixable via any connected tool.
 - Whether `main` is meant to auto-promote to production on push — recent merges only reached preview aliases, not `target: production`. Confirm intended deploy flow.
+- **GitHub OAuth callback 404 (2026-08-15):** user hit `github.com/login/oauth/...` 404 during sign-in. Root cause not yet confirmed by user, but diagnosed: this template reads two separate env vars for its base URL — `NEXTAUTH_URL` and `APP_URL` (see `lib/env.ts`, `lib/nextAuth.ts`). If either is set to `localhost` or a `*.vercel.app` value in Vercel Production env instead of `https://boxyhq.alfinega.com`, GitHub OAuth will 404 like this. Needs user to check both: (1) Vercel env vars `NEXTAUTH_URL` + `APP_URL` = `https://boxyhq.alfinega.com`, (2) GitHub OAuth App's Authorization callback URL = `https://boxyhq.alfinega.com/api/auth/callback/github`. Not fixable via any connected tool — GitHub OAuth App settings aren't exposed through the GitHub API token scope we have, and Vercel env var values aren't readable/writable via connected tools.
 
 ## 2026-08-15 — Dependabot PR triage + build warning cleanup
 
@@ -49,3 +50,13 @@ Standing instruction is brain-folder-first on every project. This project didn't
 - Investigated `glob@7.2.3` deprecation (npm flags it with a CVE note): traced to `jest → babel-plugin-istanbul → test-exclude → glob@7.2.3`, a transitive dev-dependency. Not fixable by hand without an `overrides` hack that risks peer conflicts. Correct fix path is PR #9 (jest bump) once unblocked by the env var fix — left alone.
 - Investigated "Next.js plugin not detected in ESLint config" warning: confirmed false positive, `eslint.config.cjs` already correctly includes `next/core-web-vitals`. No action taken — a fix here would be a workaround for a heuristic bug in Next's own detector, not a real gap.
 - GitHub flagged 6 vulnerabilities (4 high, 2 moderate) on push of commit `1b9d3e9` — not yet triaged. Likely correlated with the `glob` and other deprecated-package findings above. **Needs a dedicated pass**, not folded into this one.
+
+## 2026-08-15 (cont'd) — Second build log review, OAuth 404 diagnosis
+
+User provided a fresh build log (commit `7cb47ae`) plus a screenshot of a GitHub OAuth 404 during sign-in.
+
+**New build issue found and fixed (commit `f41f875`):** `eslint.config.cjs` requires `globals` but it was never declared in `package.json` — only present by transitive luck via `eslint`'s own dependency tree. The prior build succeeded only because Vercel restored a build cache; a cache-cold build (confirmed in this log — `Restored build cache from previous deployment`) would have failed the lint step outright once that luck ran out. Added `"globals": "16.5.0"` as a direct devDependency. Verified compatibility: `eslint.config.cjs` only uses `globals.node` as a plain spread, stable across all majors.
+
+**New Sentry requirement surfaced:** SDK now also wants `onRouterTransitionStart` exported from `instrumentation-client.ts` for navigation instrumentation, on top of `onRequestError` added earlier. Added.
+
+**OAuth 404 — diagnosed, not yet confirmed fixed (user action required):** This template reads `NEXTAUTH_URL` and `APP_URL` (two separate vars — see `lib/env.ts`, `lib/nextAuth.ts`) to construct callback URLs. If either is still set to a `.vercel.app` or `localhost` value in Vercel's Production environment instead of `https://boxyhq.alfinega.com`, the GitHub OAuth flow will 404 exactly as shown. Also need to confirm the GitHub OAuth App's own "Authorization callback URL" field matches `https://boxyhq.alfinega.com/api/auth/callback/github`. Neither of these is checkable or fixable via any tool currently connected — pure user action item.
