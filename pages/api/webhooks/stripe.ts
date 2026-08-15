@@ -78,15 +78,11 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handleSubscriptionUpdated(event: Stripe.Event) {
-  const {
-    cancel_at,
-    id,
-    status,
-    current_period_end,
-    current_period_start,
-    customer,
-    items,
-  } = event.data.object as Stripe.Subscription;
+  const { cancel_at, id, status, customer, items } = event.data.object as Stripe.Subscription;
+
+  const firstItem = items.data[0];
+  const current_period_start = firstItem?.current_period_start;
+  const current_period_end = firstItem?.current_period_end;
 
   const subscription = await getBySubscriptionId(id);
   if (!subscription) {
@@ -114,16 +110,23 @@ async function handleSubscriptionUpdated(event: Stripe.Event) {
 }
 
 async function handleSubscriptionCreated(event: Stripe.Event) {
-  const { customer, id, current_period_start, current_period_end, items } =
-    event.data.object as Stripe.Subscription;
+  const { customer, id, items } = event.data.object as Stripe.Subscription;
+
+  const firstItem = items.data[0];
+  const current_period_start = firstItem?.current_period_start;
+  const current_period_end = firstItem?.current_period_end;
 
   await createStripeSubscription({
     customerId: customer as string,
     id,
 
     active: true,
-    startDate: new Date(current_period_start * 1000),
-    endDate: new Date(current_period_end * 1000),
+    startDate: current_period_start
+      ? new Date(current_period_start * 1000)
+      : new Date(),
+    endDate: current_period_end
+      ? new Date(current_period_end * 1000)
+      : new Date(),
     priceId: items.data.length > 0 ? items.data[0].plan?.id : '',
   });
 }
