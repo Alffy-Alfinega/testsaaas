@@ -1,8 +1,8 @@
 ---
 tags: [moc, boxyhq, testsaaas]
 project: testsaaas (BoxyHQ SaaS Starter Kit)
-status: live-unmanaged
-last_updated: 2026-08-14
+status: live-partially-managed
+last_updated: 2026-08-15
 ---
 
 # PROJECT_BRAIN — testsaaas / boxyhq.alfinega.com
