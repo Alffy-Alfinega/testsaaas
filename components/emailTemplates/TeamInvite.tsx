@@ -7,7 +7,7 @@ import {
   Text,
 } from '@react-email/components';
 import EmailLayout from './EmailLayout';
-import { Team } from '@prisma/client';
+import { Team } from '../../lib/generated/prisma';
 import app from '@/lib/app';
 
 interface TeamInviteEmailProps {

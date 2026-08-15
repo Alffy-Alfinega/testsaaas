@@ -1,4 +1,4 @@
-import { Role } from '@prisma/client';
+import { Role } from './generated/prisma';
 import { ApiError } from './errors';
 import { getTeamMember } from 'models/team';
 

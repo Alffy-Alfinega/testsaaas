@@ -1,7 +1,7 @@
 import { Button } from 'react-daisyui';
 import getSymbolFromCurrency from 'currency-symbol-map';
 
-import { Price, Prisma, Service } from '@prisma/client';
+import { Price, Prisma, Service } from '../../lib/generated/prisma';
 
 interface PaymentButtonProps {
   plan: Service;

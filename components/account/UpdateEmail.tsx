@@ -6,7 +6,7 @@ import { Button, Input } from 'react-daisyui';
 import type { ApiResponse } from 'types';
 import { Card } from '@/components/shared';
 import { defaultHeaders } from '@/lib/common';
-import type { User } from '@prisma/client';
+import type { User } from '../../lib/generated/prisma';
 import { updateAccountSchema } from '@/lib/zod';
 
 interface UpdateEmailProps {

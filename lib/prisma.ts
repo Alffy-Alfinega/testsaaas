@@ -1,4 +1,9 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from './generated/prisma';
+import { PrismaPg } from '@prisma/adapter-pg';
+
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
 
 declare global {
   // allow global `var` declarations
@@ -8,6 +13,7 @@ declare global {
 export const prisma =
   global.prisma ||
   new PrismaClient({
+    adapter,
     //log: ["error"],
   });
 

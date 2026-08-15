@@ -1,5 +1,6 @@
 const Stripe = require('stripe');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('./lib/generated/prisma');
+const { PrismaPg } = require('@prisma/adapter-pg');
 
 /**
  * Synchronizes data between a database and the Stripe API.
@@ -9,7 +10,10 @@ const { PrismaClient } = require('@prisma/client');
  * @returns {Promise<void>} - A promise that resolves once the synchronization is complete.
  */
 const sync = async () => {
-  const prisma = new PrismaClient();
+  const adapter = new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+  });
+  const prisma = new PrismaClient({ adapter });
   try {
     console.log('Starting sync with Stripe');
     const stripe = getStripeInstance();

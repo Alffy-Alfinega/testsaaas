@@ -1,7 +1,7 @@
 import env from '@/lib/env';
 import { ApiError } from '@/lib/errors';
 import { prisma } from '@/lib/prisma';
-import { Invitation } from '@prisma/client';
+import { Invitation } from '../lib/generated/prisma';
 import { randomUUID } from 'crypto';
 
 export type TeamInvitation = Pick<

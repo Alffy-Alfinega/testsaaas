@@ -12,7 +12,7 @@ import { recordMetric } from '@/lib/metrics';
 import { ApiError } from '@/lib/errors';
 import env from '@/lib/env';
 import { updateTeamSchema, validateWithSchema } from '@/lib/zod';
-import { Prisma, Team } from '@prisma/client';
+import { Prisma, Team } from '../../../../lib/generated/prisma';
 
 export default async function handler(
   req: NextApiRequest,

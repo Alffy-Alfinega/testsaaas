@@ -3,9 +3,9 @@ import { Button } from 'react-daisyui';
 import { useTranslation } from 'next-i18next';
 
 import useTeam from 'hooks/useTeam';
-import { Price } from '@prisma/client';
+import { Price } from '../../lib/generated/prisma';
 import PaymentButton from './PaymentButton';
-import { Service, Subscription } from '@prisma/client';
+import { Service, Subscription } from '../../lib/generated/prisma';
 
 interface ProductPricingProps {
   plans: any[];

@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { Service } from '@prisma/client';
+import { Service } from '../lib/generated/prisma';
 
 export const getAllPrices = async () => {
   return await prisma.price.findMany();

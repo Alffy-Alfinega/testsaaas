@@ -1,5 +1,9 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const { PrismaClient } = require('./lib/generated/prisma');
+const { PrismaPg } = require('@prisma/adapter-pg');
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+const prisma = new PrismaClient({ adapter });
 const jackson = require('@boxyhq/saml-jackson');
 const readline = require('readline');
 const { Svix } = require('svix');

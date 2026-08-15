@@ -16,7 +16,7 @@ import { throwIfNotAllowed } from 'models/user';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { recordMetric } from '@/lib/metrics';
 import { extractEmailDomain, isEmailAllowed } from '@/lib/email/utils';
-import { Invitation, Role } from '@prisma/client';
+import { Invitation, Role } from '../../../../lib/generated/prisma';
 import { countTeamMembers } from 'models/teamMember';
 import {
   acceptInvitationSchema,

@@ -15,7 +15,7 @@ import { setCookie, getCookie } from 'cookies-next';
 import { encode, decode } from 'next-auth/jwt';
 import { randomUUID } from 'crypto';
 
-import { Role } from '@prisma/client';
+import { Role } from './generated/prisma';
 import { getAccount } from 'models/account';
 import { addTeamMember, getTeam } from 'models/team';
 import { createUser, getUser } from 'models/user';

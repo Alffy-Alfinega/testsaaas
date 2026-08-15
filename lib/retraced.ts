@@ -1,4 +1,4 @@
-import type { Team } from '@prisma/client';
+import type { Team } from './generated/prisma';
 import { Client } from '@retracedhq/retraced';
 import type { CRUD, Event } from '@retracedhq/retraced';
 import type { User } from 'next-auth';

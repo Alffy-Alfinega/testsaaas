@@ -1,6 +1,10 @@
 const { faker } = require('@faker-js/faker');
-const { PrismaClient } = require('@prisma/client');
-const client = new PrismaClient();
+const { PrismaClient } = require('../lib/generated/prisma');
+const { PrismaPg } = require('@prisma/adapter-pg');
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+const client = new PrismaClient({ adapter });
 const { hash } = require('bcryptjs');
 const { randomUUID } = require('crypto');
 

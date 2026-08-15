@@ -5,7 +5,7 @@ import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'next-i18next';
 
 import { Card } from '@/components/shared';
-import { Team } from '@prisma/client';
+import { Team } from '../../lib/generated/prisma';
 import { defaultHeaders } from '@/lib/common';
 import type { ApiResponse } from 'types';
 

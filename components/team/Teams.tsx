@@ -1,6 +1,6 @@
 import { LetterAvatar } from '@/components/shared';
 import { defaultHeaders } from '@/lib/common';
-import { Team } from '@prisma/client';
+import { Team } from '../../lib/generated/prisma';
 import useTeams from 'hooks/useTeams';
 import { useTranslation } from 'next-i18next';
 import Link from 'next/link';

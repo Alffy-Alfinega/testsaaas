@@ -1,7 +1,7 @@
 import { ApiError } from '@/lib/errors';
 import { sendAudit } from '@/lib/retraced';
 import { sendEvent } from '@/lib/svix';
-import { Role } from '@prisma/client';
+import { Role } from '../../../../lib/generated/prisma';
 import {
   getTeamMembers,
   removeTeamMember,

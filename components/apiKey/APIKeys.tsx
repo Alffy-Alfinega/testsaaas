@@ -1,6 +1,6 @@
 import { EmptyState, WithLoadingAndError } from '@/components/shared';
 import ConfirmationDialog from '@/components/shared/ConfirmationDialog';
-import type { ApiKey, Team } from '@prisma/client';
+import type { ApiKey, Team } from '../../lib/generated/prisma';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { Button } from 'react-daisyui';

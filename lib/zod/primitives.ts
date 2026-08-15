@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { isValidDomain, maxLengthPolicies, passwordPolicies } from '../common';
-import { Role } from '@prisma/client';
+import { Role } from '../generated/prisma';
 
 const requiredString = (requiredMsg: string, typeMsg: string) =>
   z.string({
