@@ -41,7 +41,7 @@ a {
 @layer base {
   input:not([type='checkbox']):not([type='radio']),
   textarea {
-    @apply rounded !important;
+    @apply !rounded;
   }
 }
 
