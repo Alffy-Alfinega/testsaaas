@@ -27,7 +27,15 @@ A GitHub PAT with repo write access was pasted directly into chat (`github_pat_1
 
 GitHub's push-time scanner flagged 6 vulnerabilities (4 high, 2 moderate) on `main` as of commit `1b9d3e9` (2026-08-15). Not yet reviewed — see https://github.com/Alffy-Alfinega/testsaaas/security/dependabot for detail. Likely overlaps with deprecated transitive packages already surfaced (e.g. `glob@7.2.3`), but needs its own pass, not an assumption.
 
-## 4. Duplicate dead projects (LOW, hygiene)
+## 8. react-daisyui is unmaintained and incompatible with daisyUI 5 (MEDIUM — worked around, not fixed)
+
+`react-daisyui@5.0.5` (latest available, published ~2 years ago per npm) peer-requires `daisyui@^4.12.10` — it has never been updated for daisyUI 5, and its GitHub issue tracker shows a long backlog of unaddressed open issues, suggesting the package is effectively unmaintained. This blocked `npm install` outright (ERESOLVE) once daisyUI was bumped to 5.
+
+Worked around via `.npmrc` (`legacy-peer-deps=true`), **not fixed** — this is a real ecosystem gap, not a false alarm. Before accepting the workaround, verified directly by reading `react-daisyui`'s compiled JS that it hardcodes several daisyUI-4-only class names internally (`input-bordered`, `select-bordered`, `textarea-bordered`, `file-input-bordered`, `form-control`, `label-text`, `card-compact` — all removed or renamed in daisyUI 5) inside components like `Form.Label` and the `bordered`/`compact` props. Confirmed via grep that this app's actual code never invokes those specific props/subcomponents, so the mismatch is currently dormant, not actively broken — but any *future* use of `<Input bordered />`, `<Form.Label>`, `<Card compact />`, etc. from `react-daisyui` will silently apply CSS classes that no longer exist in the stylesheet, with no error at build or runtime.
+
+**Do not add new usage of `react-daisyui`'s bordered/compact/Form.Label patterns without re-checking this.** Longer-term, real fix options: (a) wait for/contribute a react-daisyui daisyUI-5 compatible release, (b) migrate off react-daisyui entirely to daisyUI's plain CSS classes directly in JSX (the officially recommended daisyUI 5 pattern) — a ~44-file rewrite, out of scope for this dependency-upgrade sweep, (c) fork/patch react-daisyui locally. None attempted; flagging for a deliberate future decision.
+
+## 6. Duplicate dead projects (LOW, hygiene)
 
 `test-boxyhq` and `test-boxyhq-tayx` sitting broken in the same Vercel team. See [[../03-deployment/related-projects|Related Projects]]. No security risk (not live), but clutter risk — easy to debug the wrong project next time.
 
