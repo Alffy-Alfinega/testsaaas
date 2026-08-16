@@ -74,3 +74,10 @@ export interface TeamFeature {
   payments: boolean;
   deleteTeam: boolean;
 }
+
+// react-daisyui's ComponentStatus type is internal (dist/types.ts) and not part
+// of its public exports map — importing 'react-daisyui/dist/types' directly
+// worked under Next 15's looser module resolution but is rejected by Next 16.
+// Mirrors the literal set from react-daisyui's own dist/constants.d.ts
+// (componentStatuses) rather than depending on an unsupported deep import path.
+export type ComponentStatus = 'info' | 'success' | 'warning' | 'error';

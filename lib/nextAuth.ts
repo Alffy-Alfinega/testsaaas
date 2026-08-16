@@ -10,7 +10,6 @@ import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import type { Provider } from 'next-auth/providers';
 import { setCookie, getCookie } from 'cookies-next';
 import { encode, decode } from 'next-auth/jwt';
 import { randomUUID } from 'crypto';
@@ -45,7 +44,7 @@ import { forceConsume } from '@/lib/server-common';
 // actively maintained successor) requires NextAuth v5, which this app is not on;
 // migrating auth libraries was not part of this Prisma migration's scope.
 const adapter = PrismaAdapter(prisma as any);
-const providers: Provider[] = [];
+const providers: NextAuthOptions['providers'] = [];
 const sessionMaxAge = 14 * 24 * 60 * 60; // 14 days
 const useSecureCookie = env.appUrl.startsWith('https://');
 

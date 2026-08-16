@@ -1,7 +1,7 @@
 import { Button } from 'react-daisyui';
 import type { GetServerSidePropsContext } from 'next';
 import { useState, type ReactElement, useEffect } from 'react';
-import type { ComponentStatus } from 'react-daisyui/dist/types';
+import type { ComponentStatus } from 'types';
 import { useTranslation } from 'next-i18next';
 
 import {
