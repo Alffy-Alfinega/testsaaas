@@ -71,9 +71,9 @@ const Form = ({
               descriptionText="The endpoint URL must be HTTPS"
             />
             <div className="divider"></div>
-            <div className="form-control w-full">
+            <div className="flex flex-col w-full">
               <label className="label">
-                <span className="label-text">{t('events-to-send')}</span>
+                <span className="text-sm">{t('events-to-send')}</span>
               </label>
               <p className="ml-1 mb-3 text-sm font-normal text-gray-500">
                 {t('events-description')}

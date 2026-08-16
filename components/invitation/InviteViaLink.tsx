@@ -139,7 +139,7 @@ const InviteViaLink = ({ team }: InviteViaLinkProps) => {
           className="text-sm w-1/2"
         />
         <select
-          className="select-bordered select rounded"
+          className="select rounded"
           name="role"
           onChange={formik.handleChange}
           value={formik.values.role}

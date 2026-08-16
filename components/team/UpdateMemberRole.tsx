@@ -35,7 +35,7 @@ const UpdateMemberRole = ({ team, member }: UpdateMemberRoleProps) => {
 
   return (
     <select
-      className="select select-bordered select-sm rounded"
+      className="select select-sm rounded"
       defaultValue={member.role}
       onChange={(e) => updateRole(member, e.target.value)}
     >

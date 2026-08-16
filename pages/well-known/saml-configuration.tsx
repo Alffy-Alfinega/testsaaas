@@ -54,19 +54,19 @@ const SPConfig: NextPageWithLayout<
             </p>
           </div>
           <div className="mt-6 flex flex-col gap-6">
-            <div className="form-control w-full">
+            <div className="flex flex-col w-full">
               <InputWithCopyButton
                 value={config.acsUrl}
                 label={t('sp-acs-url')}
               />
             </div>
-            <div className="form-control w-full">
+            <div className="flex flex-col w-full">
               <InputWithCopyButton
                 value={config.entityId}
                 label={t('sp-entity-id')}
               />
             </div>
-            <div className="form-control w-full">
+            <div className="flex flex-col w-full">
               <div className="flex flex-col">
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   {t('response')}
@@ -74,7 +74,7 @@ const SPConfig: NextPageWithLayout<
                 <p className="text-sm">{config.response}</p>
               </div>
             </div>
-            <div className="form-control w-full">
+            <div className="flex flex-col w-full">
               <div className="flex flex-col">
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   {t('assertion-signature')}
@@ -82,7 +82,7 @@ const SPConfig: NextPageWithLayout<
                 <p className="text-sm">{config.assertionSignature}</p>
               </div>
             </div>
-            <div className="form-control w-full">
+            <div className="flex flex-col w-full">
               <div className="flex flex-col">
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   {t('signature-algorithm')}
@@ -90,7 +90,7 @@ const SPConfig: NextPageWithLayout<
                 <p className="text-sm">{config.signatureAlgorithm}</p>
               </div>
             </div>
-            <div className="form-control w-full">
+            <div className="flex flex-col w-full">
               <div className="flex flex-col">
                 <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                   {t('assertion-encryption')}

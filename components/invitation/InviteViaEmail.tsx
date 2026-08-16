@@ -70,7 +70,7 @@ const InviteViaEmail = ({ setVisible, team }: InviteViaEmailProps) => {
           type="email"
         />
         <select
-          className="select-bordered select rounded"
+          className="select rounded"
           name="role"
           onChange={formik.handleChange}
           value={formik.values.role}

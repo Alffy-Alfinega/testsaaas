@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@source '../node_modules/daisyui/dist/**/*.js';
+@source '../node_modules/react-daisyui/dist/**/*.js';
+@custom-variant dark (&:where(.dark, .dark *));
+@plugin '@tailwindcss/typography';
+@plugin 'daisyui' {
+  themes: corporate --default, black;
+}
 
 :root {
   color-scheme: dark light;

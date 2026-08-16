@@ -149,8 +149,8 @@ const Login: NextPageWithLayout<
                   value={formik.values.password}
                   label={
                     <label className="label">
-                      <span className="label-text">{t('password')}</span>
-                      <span className="label-text-alt">
+                      <span className="text-sm">{t('password')}</span>
+                      <span className="text-xs">
                         <Link
                           href="/auth/forgot-password"
                           className="text-sm text-primary hover:text-[color-mix(in_oklab,oklch(var(--p)),black_7%)]"
