@@ -113,6 +113,10 @@
     },
     "@react-email/components": {
       "prismjs": ">=1.30.0"
+    },
+    "@boxyhq/react-ui": {
+      "react": "$react",
+      "react-dom": "$react-dom"
     }
   },
   "browserslist": [
